@@ -42,8 +42,7 @@
     secondaryColor: '#f9f9f9',
     vertical:       18,
     horizontal:     140,
-    gutter:         40,
-    resizeTimer:    null
+    gutter:         40
   };
 
   // build a canvas the size of the chosen element
