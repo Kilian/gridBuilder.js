@@ -8,11 +8,6 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  */
-
-/*
- * @todo add a floating data panel which you can input all settings with
- * @todo make floating data panel spew out js code too
- */
 "use strict";
 (function ($) {
   $.fn.gridBuilder = function (useroptions) {
@@ -51,8 +46,8 @@
 
   //Provide defaults
   $.fn.gridBuilder.defaults = {
-    color:          '#ddd',
-    secondaryColor: '#f1f1f1',
+    color:          '#eee',
+    secondaryColor: '#f9f9f9',
     vertical:       18,
     horizontal:     140,
     gutter:         40,
@@ -132,8 +127,8 @@
 
   // remove canvas element, get rid of background image
   $.fn.gridBuilder.destroy = function (element, redraw) {
-    if (!redraw) { element.css("background-image", 'none'); }
-    $("gridCanvasFor" + element.id).remove();
+      if (!redraw) { element.css("background-image", 'none'); }
+      $("gridCanvasFor" + element.id).remove();
   };
 }(jQuery));
 
