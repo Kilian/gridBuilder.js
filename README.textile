@@ -1,0 +1,26 @@
+h1. gridBuilder.js demo
+
+*gridBuilder.js is a jQuery plugin that draws a grid as a background.*
+
+It works via _canvas_ and _data-URL_, so you need *a real browser*. It can be applied to any element, the grid is completely customisable, and has options to show secondary gridlines as well. The grid gets repainted when the window gets resized.
+
+h2. How to invoke, and the default options of gridBuilder:
+@code@$(document).ready(function(){
+@code@  $("body").gridBuilder({
+@code@    color:          '#eee',    // color of the primary gridlines
+@code@    secondaryColor: '#f9f9f9', // color of the secondary gridlines
+@code@    vertical:       18,        // height of the vertical rhythm
+@code@    horizontal:     140,       // width of horizontal strokes
+@code@    gutter:         40,        // width of the gutter between strokes
+@code@  });
+@code@});
+
+To remove via javascript:
+
+@code@  $.fn.gridBuilder.destroy($("body"));
+
+4.2kb unpacked. Requires "jQuery":http://jquery.com. Tested in Firefox 3.0, 3.5, Qt-Webkit 4.5 and Opera 9.6. Dual licenced under the MIT and GPL licenses.
+How to invoke, and the default options of gridBuilder:
+
+Made by "Kilian Valkhof":http://kilianvalkhof.com
+
