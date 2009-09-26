@@ -1,6 +1,6 @@
 /*
  * jQuery gridBuilder
- * Version 0.4 (24/10/2009)
+ * Version 1.0 (26/10/2009)
  *
  * Copyright (c) 2009 Kilian Valkhof (kilianvalkhof.com)
  * Dual licensed under the MIT and GPL licenses:
