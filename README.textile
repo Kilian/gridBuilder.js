@@ -7,13 +7,13 @@ It works via _canvas_ and _data-URL_, so you need *a real browser*. It can be ap
 h3. How to invoke, and the default options of gridBuilder:
 
 @$(document).ready(function(){@
-@  $("body").gridBuilder({@
-@    color:          '#eee',    // color of the primary gridlines@
-@    secondaryColor: '#f9f9f9', // color of the secondary gridlines@
-@    vertical:       18,        // height of the vertical rhythm@
-@    horizontal:     140,       // width of horizontal strokes@
-@    gutter:         40,        // width of the gutter between strokes@
-@  });@
+@$("body").gridBuilder({@
+@color:          '#eee',    // color of the primary gridlines@
+@secondaryColor: '#f9f9f9', // color of the secondary gridlines@
+@vertical:       18,        // height of the vertical rhythm@
+@horizontal:     140,       // width of horizontal strokes@
+@gutter:         40,        // width of the gutter between strokes@
+@});@
 @});@
 
 To remove via javascript:
