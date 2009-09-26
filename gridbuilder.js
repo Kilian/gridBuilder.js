@@ -1,6 +1,6 @@
 /*
  * jQuery gridBuilder
- * Version 0.3 (24/10/2009)
+ * Version 0.4 (24/10/2009)
  *
  * Copyright (c) 2009 Kilian Valkhof (kilianvalkhof.com)
  * Dual licensed under the MIT and GPL licenses:
@@ -13,7 +13,7 @@
  * @todo add a floating data panel which you can input all settings with
  * @todo make floating data panel spew out js code too
  */
-  "use strict";
+"use strict";
 (function ($) {
   $.fn.gridBuilder = function (useroptions) {
     return this.each(function () {
@@ -30,7 +30,7 @@
       var gridCanvas = $.fn.gridBuilder.makeCanvas(options);
       var gridContext = gridCanvas.getContext("2d");
 
-      // draw it all
+      // draw all lines and place them as background
       $.fn.gridBuilder.drawVertical(gridContext, options);
       $.fn.gridBuilder.drawHorizontal(gridContext, options);
       $.fn.gridBuilder.setBackground(this, gridCanvas, options);
@@ -73,11 +73,11 @@
     if (options.horizontal) {
       gridContext.beginPath();
       for (var x = options.horizontal - 0.5; x <= options.width; x += options.horizontal) {
-        gridContext.moveTo(x, 0);
-        gridContext.lineTo(x, options.height);
-        x += options.gutter;
-        gridContext.moveTo(x, 0);
-        gridContext.lineTo(x, options.height);
+        $.fn.gridBuilder.drawSingleLine(gridContext, x, 0, x, options.height);
+        if (options.gutter > 0) {
+          x += options.gutter;
+          $.fn.gridBuilder.drawSingleLine(gridContext, x, 0, x, options.height);
+        }
       }
       $.fn.gridBuilder.draw(gridContext, options.color);
 
@@ -85,8 +85,7 @@
       if (options.secondaryColor) {
         gridContext.beginPath();
         for (var xs = (options.horizontal / 2) - 0.5; xs <= options.width; xs += options.horizontal) {
-          gridContext.moveTo(xs, 0);
-          gridContext.lineTo(xs, options.height);
+          $.fn.gridBuilder.drawSingleLine(gridContext, xs, 0, xs, options.height);
           xs += options.gutter;
         }
         $.fn.gridBuilder.draw(gridContext, options.secondaryColor);
@@ -99,8 +98,7 @@
     if (options.vertical) {
       gridContext.beginPath();
       for (var y = options.vertical - 0.5; y <= options.height; y += options.vertical) {
-        gridContext.moveTo(0, y);
-        gridContext.lineTo(options.width, y);
+        $.fn.gridBuilder.drawSingleLine(gridContext, 0, y, options.width, y);
       }
       $.fn.gridBuilder.draw(gridContext, options.color);
 
@@ -108,15 +106,19 @@
       if (options.secondaryColor) {
         gridContext.beginPath();
         for (var ys = (options.vertical / 2) - 0.5; ys <= options.height; ys += options.vertical) {
-          gridContext.moveTo(0, ys);
-          gridContext.lineTo(options.width, ys);
+          $.fn.gridBuilder.drawSingleLine(gridContext, 0, ys, options.width, ys);
         }
         $.fn.gridBuilder.draw(gridContext, options.secondaryColor);
       }
     }
   };
 
-  // draw elements
+  // draw single line
+  $.fn.gridBuilder.drawSingleLine = function (gridContext, x, y,newx,newy) {
+    gridContext.moveTo(x, y);
+    gridContext.lineTo(newx, newy);
+  }
+  // draw elements on the canvas
   $.fn.gridBuilder.draw = function (gridContext, color) {
     gridContext.strokeStyle = color;
     gridContext.stroke();
@@ -130,11 +132,8 @@
 
   // remove canvas element, get rid of background image
   $.fn.gridBuilder.destroy = function (element, redraw) {
-    if (!redraw) {
-      element.css("background-image", 'none');
-    }
+    if (!redraw) { element.css("background-image", 'none'); }
     $("gridCanvasFor" + element.id).remove();
   };
-
 }(jQuery));
 
