@@ -1,6 +1,6 @@
 /*
  * jQuery gridBuilder
- * Version 1.0 (26/10/2009)
+ * Version 1.1 (26/10/2009)
  *
  * Copyright (c) 2009 Kilian Valkhof (kilianvalkhof.com)
  * Dual licensed under the MIT and GPL licenses:
@@ -16,10 +16,14 @@
 
       //init options
       var options = $.extend(
-        {width: $this.width(), height: $this.height(), id: this.id},
+        {id: this.id},
         $.fn.gridBuilder.defaults,
         useroptions
       );
+
+      // get width and height of repeating block
+      options.width = options.horizontal + options.gutter;
+      options.height = options.vertical;
 
       // build canvas and context
       var gridCanvas = $.fn.gridBuilder.makeCanvas(options);
@@ -29,18 +33,6 @@
       $.fn.gridBuilder.drawVertical(gridContext, options);
       $.fn.gridBuilder.drawHorizontal(gridContext, options);
       $.fn.gridBuilder.setBackground(this, gridCanvas, options);
-
-      // redraw on resize
-      function reDraw() {
-        $.fn.gridBuilder.destroy($this, true);
-        $this.gridBuilder(useroptions);
-      }
-
-      $(window).bind('resize', function () {
-        if (!options.resizeTimer) {
-          options.resizeTimer = setTimeout(reDraw, 100);
-        }
-      });
     });
   };
 
@@ -122,12 +114,15 @@
   // set as background
   $.fn.gridBuilder.setBackground = function (element, gridCanvas, options) {
     var canvasData = gridCanvas.toDataURL();
-    $(element).css("background-image", 'url(' + canvasData + ')');
+    $(element).css({
+      "background-image": "url(" + canvasData + ")",
+      "background-repeat":"repeat"
+    });
   };
 
   // remove canvas element, get rid of background image
   $.fn.gridBuilder.destroy = function (element, redraw) {
-      if (!redraw) { element.css("background-image", 'none'); }
+      if (!redraw) { element.css({"background-image": "none"}); }
       $("gridCanvasFor" + element.id).remove();
   };
 }(jQuery));
