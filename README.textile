@@ -2,7 +2,7 @@ h2. gridBuilder.js demo
 
 *gridBuilder.js is a jQuery plugin that draws a grid as a background.*
 
-It works via _canvas_ and _data-URL_, so you need *a real browser*. It can be applied to any element, the grid is completely customisable, and has options to show secondary gridlines as well. The grid gets repainted when the window gets resized.
+It works via _canvas_ and _data-URL_, so you need *a real browser*. It can be applied to any element, the grid is completely customisable, and has options to show secondary gridlines as well.
 
 h3. How to invoke, and the default options of gridBuilder:
 
