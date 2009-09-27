@@ -21,10 +21,6 @@
         useroptions
       );
 
-      // get width and height of repeating block
-      options.width = options.horizontal + options.gutter;
-      options.height = options.vertical;
-
       // build canvas and context
       var gridCanvas = $.fn.gridBuilder.makeCanvas(options);
       var gridContext = gridCanvas.getContext("2d");
@@ -49,8 +45,8 @@
   $.fn.gridBuilder.makeCanvas = function (options) {
     var canvas = document.createElement('canvas');
     canvas.id = "gridCanvasFor" + options.id;
-    canvas.height = options.height;
-    canvas.width = options.width;
+    canvas.height = options.vertical;
+    canvas.width = options.horizontal + options.gutter;
     return canvas;
   };
 
@@ -58,11 +54,11 @@
   $.fn.gridBuilder.drawVertical = function (gridContext, options) {
     if (options.horizontal) {
       gridContext.beginPath();
-      for (var x = options.horizontal - 0.5; x <= options.width; x += options.horizontal) {
-        $.fn.gridBuilder.drawSingleLine(gridContext, x, 0, x, options.height);
+      for (var x = options.horizontal - 0.5; x <= options.horizontal + options.gutter; x += options.horizontal) {
+        $.fn.gridBuilder.drawSingleLine(gridContext, x, 0, x, options.vertical);
         if (options.gutter > 0) {
           x += options.gutter;
-          $.fn.gridBuilder.drawSingleLine(gridContext, x, 0, x, options.height);
+          $.fn.gridBuilder.drawSingleLine(gridContext, x, 0, x, options.vertical);
         }
       }
       $.fn.gridBuilder.draw(gridContext, options.color);
@@ -70,8 +66,8 @@
       //draw secondary lines
       if (options.secondaryColor) {
         gridContext.beginPath();
-        for (var xs = (options.horizontal / 2) - 0.5; xs <= options.width; xs += options.horizontal) {
-          $.fn.gridBuilder.drawSingleLine(gridContext, xs, 0, xs, options.height);
+        for (var xs = (options.horizontal / 2) - 0.5; xs <= options.horizontal + options.gutter; xs += options.horizontal) {
+          $.fn.gridBuilder.drawSingleLine(gridContext, xs, 0, xs, options.vertical);
           xs += options.gutter;
         }
         $.fn.gridBuilder.draw(gridContext, options.secondaryColor);
@@ -83,16 +79,16 @@
   $.fn.gridBuilder.drawHorizontal = function (gridContext, options) {
     if (options.vertical) {
       gridContext.beginPath();
-      for (var y = options.vertical - 0.5; y <= options.height; y += options.vertical) {
-        $.fn.gridBuilder.drawSingleLine(gridContext, 0, y, options.width, y);
+      for (var y = options.vertical - 0.5; y <= options.vertical; y += options.vertical) {
+        $.fn.gridBuilder.drawSingleLine(gridContext, 0, y, options.horizontal + options.gutter, y);
       }
       $.fn.gridBuilder.draw(gridContext, options.color);
 
       //draw secondary lines
       if (options.secondaryColor) {
         gridContext.beginPath();
-        for (var ys = (options.vertical / 2) - 0.5; ys <= options.height; ys += options.vertical) {
-          $.fn.gridBuilder.drawSingleLine(gridContext, 0, ys, options.width, ys);
+        for (var ys = (options.vertical / 2) - 0.5; ys <= options.vertical; ys += options.vertical) {
+          $.fn.gridBuilder.drawSingleLine(gridContext, 0, ys, options.horizontal + options.gutter, ys);
         }
         $.fn.gridBuilder.draw(gridContext, options.secondaryColor);
       }
@@ -120,8 +116,8 @@
   };
 
   // remove canvas element, get rid of background image
-  $.fn.gridBuilder.destroy = function (element, redraw) {
-      if (!redraw) { element.css({"background-image": "none"}); }
+  $.fn.gridBuilder.destroy = function (element) {
+      element.css({"background-image": "none"});
       $("gridCanvasFor" + element.id).remove();
   };
 }(jQuery));
