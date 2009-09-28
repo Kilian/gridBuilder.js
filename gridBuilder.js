@@ -65,12 +65,9 @@
 
       //draw secondary lines
       if (options.secondaryColor) {
+        var xs = (options.gutter/2) + (options.horizontal / 2) - 0.5;
         gridContext.beginPath();
-        for (var xs = -(options.gutter/2) + (options.horizontal / 2) - 0.5; xs <= options.horizontal + options.gutter; xs += options.horizontal) {
-          xs += options.gutter;
-          $.fn.gridBuilder.drawSingleLine(gridContext, xs, 0, xs, options.vertical);
-
-        }
+        $.fn.gridBuilder.drawSingleLine(gridContext, xs, 0, xs, options.vertical);
         $.fn.gridBuilder.draw(gridContext, options.secondaryColor);
       }
     }
@@ -79,18 +76,16 @@
   // draw the horizontal lines
   $.fn.gridBuilder.drawHorizontal = function (gridContext, options) {
     if (options.vertical) {
+      var y = options.vertical - 0.5;
       gridContext.beginPath();
-      for (var y = options.vertical - 0.5; y <= options.vertical; y += options.vertical) {
-        $.fn.gridBuilder.drawSingleLine(gridContext, 0, y, options.horizontal + options.gutter, y);
-      }
+      $.fn.gridBuilder.drawSingleLine(gridContext, 0, y, options.horizontal + options.gutter, y);
       $.fn.gridBuilder.draw(gridContext, options.color);
 
       //draw secondary lines
       if (options.secondaryColor) {
+        var ys = (options.vertical / 2) - 0.5;
         gridContext.beginPath();
-        for (var ys = (options.vertical / 2) - 0.5; ys <= options.vertical; ys += options.vertical) {
-          $.fn.gridBuilder.drawSingleLine(gridContext, 0, ys, options.horizontal + options.gutter, ys);
-        }
+        $.fn.gridBuilder.drawSingleLine(gridContext, 0, ys, options.horizontal + options.gutter, ys);
         $.fn.gridBuilder.draw(gridContext, options.secondaryColor);
       }
     }
