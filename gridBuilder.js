@@ -112,9 +112,12 @@
   };
 
   // remove canvas element, get rid of background image
-  $.fn.gridBuilder.destroy = function (element) {
-      element.css({"background-image": "none"});
-      $("gridCanvasFor" + element.id).remove();
+  $.fn.destroyGrid = function (useroptions) {
+    return this.each(function () {
+      var $this = $(this);
+      $this.css({"background-image": "none"});
+      $("gridCanvasFor" + $this.id).remove();
+    });
   };
 }(jQuery));
 

@@ -18,7 +18,7 @@ h3. How to invoke, and the default options of gridBuilder:
 
 To remove via javascript:
 
-@$.fn.gridBuilder.destroy($("body"));@
+@$("body").destroyGrid();@
 
 Requires "jQuery":http://jquery.com. Tested in Firefox 3.0, 3.5, Qt-Webkit 4.5 and Opera 9.6. Dual licenced under the MIT and GPL licenses.
 How to invoke, and the default options of gridBuilder:
